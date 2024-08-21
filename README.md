@@ -2,7 +2,7 @@
 
 ![題目示意圖](image.png)
 
-請 clone 這一份模板(https://github.com/jasonlu0525/nuxt3-live-question/tree/day5-composable)，完成以下條件 :
+請 clone 這一份模板，完成以下條件 :
 
 - 在 pages/index.vue 使用 ES6 fetch 或是 axios 串接前台 [最新消息 API ( GET )](https://nuxr3.zeabur.app/swagger/#/Home%2FNews%20-%20%E6%9C%80%E6%96%B0%E6%B6%88%E6%81%AF) ，將資料寫入 newsList 並且切換 Loading 元件開啟、關閉的狀態。
 - 將 newsList 資料在 <NewsCard  /> 以 v-for 渲染卡片，並將 props 傳入<NewsCard  /> 元件
