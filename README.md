@@ -18,13 +18,13 @@ Node.js 版本建議為：`18.0.0` 以上
 ### 取得專案
 
 ```bash
-git clone -b day4-component  https://github.com/jasonlu0525/nuxt3-live-question.git day4-component 
+git clone -b day4-component  https://github.com/jasonlu0525/nuxt3-live-question.git day4-component-question
 ```
 
 ### 移動到專案內
 
 ```bash
-cd  day4-component
+cd  day4-component-question
 ```
 
 ### 安裝套件
