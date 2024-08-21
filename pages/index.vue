@@ -1,6 +1,6 @@
 <script setup>
-import Loading from 'vue-loading-overlay';
-import 'vue-loading-overlay/dist/css/index.css';
+import Loading from "vue-loading-overlay";
+import "vue-loading-overlay/dist/css/index.css";
 
 const newsList = ref([]);
 const isLoading = ref(false);
@@ -10,15 +10,11 @@ const isLoading = ref(false);
 // 切換 isLoading 狀態
 
 
-
 </script>
 
 <template>
-
   <div class="container">
-    <h1>
-      最新消息
-    </h1>
+    <h1>最新消息</h1>
     <!-- <NewsCard v-for="..." :key="..."  v-bind="..." /> -->
 
     <ClientOnly>
@@ -26,7 +22,6 @@ const isLoading = ref(false);
     </ClientOnly>
   </div>
 </template>
-
 
 <style scoped>
 .container {
