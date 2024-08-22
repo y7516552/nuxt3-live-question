@@ -20,13 +20,13 @@ Node.js 版本建議為：`18.0.0` 以上
 ### 取得專案
 
 ```bash
-git clone -b day5-router  https://github.com/jasonlu0525/nuxt3-live-question.git day5-router-question
+git clone -b day6-router  https://github.com/jasonlu0525/nuxt3-live-question.git day6-router-question
 ```
 
 ### 移動到專案內
 
 ```bash
-cd  day5-router-question
+cd  day6-router-question
 ```
 
 ### 安裝套件
