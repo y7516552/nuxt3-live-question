@@ -47,7 +47,7 @@ git clone -b day2-style  https://github.com/jasonlu0525/nuxt3-live-question.git 
 
 ```bash
 cd  day2-style-question 
-```d
+```
 
 ### 安裝套件
 
