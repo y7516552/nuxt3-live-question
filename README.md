@@ -1,8 +1,6 @@
-# Day7 - 嵌套式路由、useRouter & useRoute 題目
+# Day 7 - 嵌套式路由、useRouter & useRoute 題目
 
-![題目示意圖](image.png)
-
-請 clone 這一份模板，將 `/pages/room.vue` 改為嵌套式路由，並實作房型列表與房型詳細頁面（不包含動態路由 :
+請 clone 這一份模板，將 `/pages/room.vue` 改為嵌套式路由，並實作房型列表與房型詳細頁面（不包含動態路由):
 
 - 房型列表頁面的 URL 需對應 `/room/`，在此頁面使用 ES6 Fetch 或 axios 串接 [前台房型 API](https://nuxr3.zeabur.app/swagger/#/Rooms%20-%20%E6%88%BF%E5%9E%8B) ，將資料寫入 roomList 變數 ，並在模板的 v-for 使用 roomList 渲染資料。
 - 承上，模板的 HTML 、CSS 已有在 `/pages/room.vue` 中提供，需將其移至房型列表頁面並補上 API 串接的 JavaScript 。
