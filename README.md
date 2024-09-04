@@ -56,8 +56,6 @@ Node.js 版本建議為：`18.0.0` 以上
 
 ### 取得專案
 
-day11-usehead-seo
-
 ```bash
 git clone -b day11-usehead-seo   https://github.com/jasonlu0525/nuxt3-live-question.git  day11-usehead-seo-question
 ```
