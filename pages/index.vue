@@ -1,4 +1,6 @@
-<script setup></script>
+<script setup>
+navigateTo("/register");
+</script>
 
 <template>
   <div>Page: index</div>
