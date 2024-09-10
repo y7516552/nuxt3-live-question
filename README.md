@@ -3,13 +3,25 @@
 ![題目示意圖](image.png)
 
 請 clone 這一份模板，完成以下條件 :
-- 根據課程 [API 文件](https://nuxr3.zeabur.app/swagger/#/) 規劃前台 首頁、房型的 Nuxt3 路由結構。路由結構只需設計第一層， 嵌套式路由 ( 巢狀路由 ) 與動態路由不需實作，例如 : Rooms  “房型列表”需設計，”房型詳細資料” 不需實作。
-- 首頁頁面的元件名稱需使用 `index.vue`。
-- 頁面的 template 只需顯示 、 “首頁頁面” 、 “房型頁面” 即可 。
+
+- 建立前台首頁 ( `index.vue` ) 以及房型頁面 (`room.vue`) 。前台首頁對應的路由路徑為 `/` ，房型頁面的路由路徑為`/room`。
+- 頁面上只需呈現純文字。前台首頁顯示 “首頁頁面” ，房型頁面 顯示“房型頁面”
+
+```html
+<!-- 前台首頁 -->
+<template>
+  <h1>首頁頁面</h1>
+</template>
+
+<!-- /room 房型頁面 -->
+<template>
+  <h1>房型頁面</h1>
+</template>
+```
+
 - 將 app.vue 預設的 `<NuxtWelcome />` 歡迎改成可以顯示頁面的內容 。
 - 在 `layouts/default.vue` 的 Layout 中已有載入 Bootstrap5 SCSS 及 Navbar 元件。需在 `layouts/default.vue` 的 Navbar 加入 `<NuxtLink>` 元件，實現切換頁面的功能。
 - 修改路由預設的 `linkActiveClass` 和 `linkExactActiveClass` ，使 `<NuxtLink>` 匹配到路由的時候可以套用 Bootstrap5 的 `.active` class 。
-
 
 ## 安裝
 
