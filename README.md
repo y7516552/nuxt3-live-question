@@ -12,7 +12,7 @@
 - 登入成功與失敗皆使用 [sweetAlert2 套件](https://sweetalert2.github.io/) 顯示訊息。sweetAlert2 套件在模板已有安裝與引入，不需再額外設定。
 
 ```jsx
-$showSweetAlert({
+$swal.fire({
   position: "center",
   icon: ... ,
   title: ... ,
