@@ -30,7 +30,7 @@ const loginAccount = () => {
       <div class="row justify-content-md-center">
         <div class="col-12 col-md-11 col-lg-8 col-xl-7 col-xxl-6">
           <h2 class="h3 mb-4">登入</h2>
-          <form @submit.prevent="loginAccount(userLoginObject)">
+          <form>
             <div class="form-floating mb-4">
               <input
                 type="email"
@@ -39,7 +39,6 @@ const loginAccount = () => {
                 placeholder="example@gmail.com"
                 pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                 required
-                v-model="userLoginObject.email"
               />
               <label for="email">信箱 <span class="text-danger">*</span></label>
             </div>
@@ -52,7 +51,6 @@ const loginAccount = () => {
                 placeholder="請輸入 8 碼以上密碼"
                 pattern=".{8,}"
                 required
-                v-model="userLoginObject.password"
               />
               <label for="password"
                 >密碼 <span class="text-danger">*</span></label
