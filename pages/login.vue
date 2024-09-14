@@ -1,6 +1,5 @@
 <script setup>
 const { $swal } = useNuxtApp();
-const router = useRouter();
 
 const userLoginObject = ref({
   email: "",
@@ -30,8 +29,6 @@ const loginAccount = async (requsetBody) => {
       timer: 1500,
     });
 
-    // 跳轉到/orders 頁面
-    router.push("/orders");
   } catch (error) {
     const { message } = error.response._data;
     $swal.fire({
