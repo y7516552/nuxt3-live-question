@@ -1,6 +1,5 @@
 <script setup>
 const { $swal } = useNuxtApp();
-
 const userLoginObject = ref({
   email: "",
   password: "",

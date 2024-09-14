@@ -14,7 +14,7 @@ const userRegisteObject = ref({
 });
 const processRegistration = async (requsetBody) => {
   try {
-    const response = await $fetch("/user/signup", {
+    await $fetch("/user/signup", {
       baseURL: "https://nuxr3.zeabur.app/api/v1",
       method: "POST",
       body: {
