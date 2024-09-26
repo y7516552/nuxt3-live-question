@@ -12,7 +12,7 @@
   // export const xxx = ... ;
   ```
 
-- 使用 `/pages/index.vue` 的 `createOrder()` 方法建立訂單，將被選取的房型 `roomInfo` 和訂房人資料 `userInfo` 整合為 `bookingResult`，並將 `bookingResult` 移至 `useBookingStore` 中進行狀態管理 ( 格式如下 )，並將 `bookingResult` 移至 `useBookingStore` 中進行狀態管理。完成後，使用 `useRouter` 的方法導引至 `/order` 頁面。
+- 使用 `/pages/index.vue` 的 `createOrder()` 方法建立訂單，將被選取的房型 `roomInfo` 和訂房人資料 `userInfo` 整合為 `bookingResult`，並將 `bookingResult` 移至 `useBookingStore` 中進行狀態管理 ( 格式如下 )。完成後，使用 `useRouter` 的方法導引至 `/order` 頁面。
 
   ```jsx
 
