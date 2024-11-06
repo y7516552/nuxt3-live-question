@@ -1,8 +1,10 @@
-<script lang="ts" setup></script>
+<script setup></script>
 
 <template>
   <div>
+    
     <h1>Page: 首頁</h1>
+
     <button type="button" class="btn btn-primary">Primary</button>
     <button type="button" class="btn btn-secondary">Secondary</button>
     <button type="button" class="btn btn-success">Success</button>

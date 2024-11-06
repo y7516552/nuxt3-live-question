@@ -1,5 +1,11 @@
 <template>
   <div>
-    <NuxtPage />
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
   </div>
 </template>
+
+<style lang="scss" >
+@import "assets/stylesheets/all.scss";
+</style>
