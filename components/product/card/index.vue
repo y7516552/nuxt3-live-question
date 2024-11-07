@@ -8,11 +8,6 @@
 </template>
 
 <script setup>
-import CardImage from './product/card/CardImage.vue';
-import CardTitle from './product/card/CardTitle.vue';
-import CardPrice from './product/card/CardPrice.vue';
-import CardButton from './product/card/CardButton.vue';
-
 defineProps({
   imageSrc: String,
   altText: String,
