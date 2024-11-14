@@ -13,6 +13,45 @@ const userRegisteObject = ref({
     detail: "",
   },
 });
+const showMsg = ( status, msg='' ) => {
+
+  let icon = 'success'
+  let title = '成功'
+  let text = '註冊成功!!'
+
+  if(!status) {
+    icon = 'error'
+    title = '失敗'
+    text = msg
+  }
+
+  $swal.fire({
+    position: "center",
+    icon: icon,
+    title: title,
+    text: text,
+    showConfirmButton: false,
+    timer: 1500,
+});
+}
+
+const register = async () => {
+
+  try{
+    const res = await $fetch("api/v1/user/signup", {
+      method: "POST",
+      body: {...userRegisteObject.value},
+      baseURL: "https://nuxr3.zeabur.app/",
+      
+    })
+    showMsg(res.status)
+  }catch(error){
+    const { status, message } = error.response._data
+    showMsg(status, message)
+  }
+}
+
+
 // 使用 sweetAlert2 套件顯示訊息
 // $swal.fire({
 //   position: "center",
@@ -30,9 +69,10 @@ const userRegisteObject = ref({
         <div class="col-12 col-md-11 col-lg-8 col-xl-7 col-xxl-6">
           <div class="bg-white p-4 p-md-5 rounded shadow-sm">
             <h2 class="h3 mb-4">會員註冊</h2>
-            <form @submit.prevent="">
+            <form @submit.prevent="register">
               <div class="form-floating mb-4">
                 <input
+                  v-model="userRegisteObject.name"
                   type="text"
                   class="form-control"
                   id="firstName"
@@ -46,6 +86,7 @@ const userRegisteObject = ref({
 
               <div class="form-floating mb-4">
                 <input
+                  v-model="userRegisteObject.email"
                   type="email"
                   class="form-control"
                   id="email"
@@ -60,12 +101,14 @@ const userRegisteObject = ref({
 
               <div class="form-floating mb-4">
                 <input
+                  v-model="userRegisteObject.password"
                   type="password"
                   class="form-control"
                   id="password"
                   placeholder="請輸入 8 碼以上密碼"
                   pattern=".{8,}"
                   required
+                  autocomplete 
                 />
                 <label for="password"
                   >密碼 <span class="text-danger">*</span></label
@@ -74,6 +117,7 @@ const userRegisteObject = ref({
 
               <div class="form-floating mb-4">
                 <input
+                  v-model="userRegisteObject.phone"
                   type="tel"
                   class="form-control"
                   id="phone"
@@ -86,6 +130,7 @@ const userRegisteObject = ref({
 
               <div class="form-floating mb-4">
                 <input
+                  v-model="userRegisteObject.birthday"
                   type="date"
                   class="form-control"
                   id="dateInput"
@@ -98,6 +143,7 @@ const userRegisteObject = ref({
                 <div class="col-md-6">
                   <div class="form-floating mb-4">
                     <input
+                      v-model="userRegisteObject.address.zipcode"
                       type="text"
                       class="form-control"
                       id="zipcode"
@@ -111,6 +157,7 @@ const userRegisteObject = ref({
                 <div class="col-md-6">
                   <div class="form-floating mb-4">
                     <input
+                      v-model="userRegisteObject.address.detail"
                       type="text"
                       class="form-control"
                       id="address"
