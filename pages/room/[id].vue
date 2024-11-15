@@ -2,7 +2,7 @@
 const route = useRoute();
 const router = useRouter();
 const roomId = route.params.id
-const roomDetails = ref({});
+// const roomDetails = ref({});
 
 const thousandthsFormat = (price) => {
   price = parseInt(price)
@@ -15,21 +15,35 @@ const thousandthsFormat = (price) => {
 
 const apiUrl = `https://nuxr3.zeabur.app/api/v1/rooms/${roomId}`;
 
-fetch(apiUrl)
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error("取得房型資料失敗");
+const { data : roomDetails, status, error }  = await useFetch(
+  apiUrl ,
+  {
+    transform: ( response ) => { 
+      const { result } = response 
+      return result
     }
-    return response.json();
-  })
-  .then((data) => {
-    const { result } = data;
-    roomDetails.value = result;
-  })
-  .catch((error) => {
-    console.error("發生錯誤:", error);
-    return navigateTo(`/rooms/${roomId}`, { redirectCode: 404 })
-  });
+  }
+)
+if(!status.value || error.value) {
+  console.error("發生錯誤:",error.value.message)
+  navigateTo(`/rooms/${roomId}`, { redirectCode: 404 })
+};
+
+// fetch(apiUrl)
+//   .then((response) => {
+//     if (!response.ok) {
+//       throw new Error("取得房型資料失敗");
+//     }
+//     return response.json();
+//   })
+//   .then((data) => {
+//     const { result } = data;
+//     roomDetails.value = result;
+//   })
+//   .catch((error) => {
+//     console.error("發生錯誤:", error);
+//     return navigateTo(`/rooms/${roomId}`, { redirectCode: 404 })
+//   });
 
 </script>
 
