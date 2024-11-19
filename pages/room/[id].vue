@@ -24,6 +24,18 @@ const { data: roomObject } = await useFetch(`/rooms/${id}`, {
 const isProvide = function (isProvideBoolean = false) {
   return isProvideBoolean ? "提供" : "未提供";
 };
+
+useSeoMeta({
+  description: roomObject.value.description,
+  ogTitle: `Freyja | ${roomObject.value.name} `,
+  ogDescription: roomObject.value.description,
+  ogImage: roomObject.value.imageUrl,
+  ogUrl: `https://freyja.travel.com.tw/room/${roomObject.value.id}`,
+  twitterCard: "summary_large_image",
+  twitterTitle: `Freyja | ${roomObject.value.name}`,
+  twitterDescription: roomObject.value.description,
+  twitterImage: roomObject.value.imageUrl,
+})
 </script>
 
 <template>
