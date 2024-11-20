@@ -31,24 +31,40 @@ const { data: roomObject } = await useFetch(`/rooms/${id}`, {
 <meta name="twitter:image" content="{{房型主圖}}">
 */
 
-useSeoMeta({
-  description: roomObject.value.description,
-  ogTitle: `Freyja | ${roomObject.value.name} `,
-  ogDescription: roomObject.value.description,
-  ogImage: roomObject.value.imageUrl,
-  ogUrl: `https://freyja.travel.com.tw/room/${roomObject.value.id}`,
-  twitterCard: "summary_large_image",
-  twitterTitle: `Freyja | ${roomObject.value.name}`,
-  twitterDescription: roomObject.value.description,
-  twitterImage: roomObject.value.imageUrl,
-})
+// useSeoMeta({
+//   description: roomObject.value.description,
+//   ogTitle: `Freyja | ${roomObject.value.name} `,
+//   ogDescription: roomObject.value.description,
+//   ogImage: roomObject.value.imageUrl,
+//   ogUrl: `https://freyja.travel.com.tw/room/${roomObject.value.id}`,
+//   twitterCard: "summary_large_image",
+//   twitterTitle: `Freyja | ${roomObject.value.name}`,
+//   twitterDescription: roomObject.value.description,
+//   twitterImage: roomObject.value.imageUrl,
+// })
 
 const isProvide = function (isProvideBoolean = false) {
   return isProvideBoolean ? "提供" : "未提供";
 };
+const seoTitle = computed(()=> `Freyja | ${roomObject.value.name} `)
+const ogUrl = computed(()=> `https://freyja.travel.com.tw/room/${roomObject.value.id}`)
+
 </script>
 
 <template>
+  <Head>
+    <Title>{{ seoTitle }}</Title>
+    <Meta name="description" :content="roomObject.value.name"/>
+    <Meta property="og:title" :content="seoTitle"/>
+    <Meta property="og:description" :content="roomObject.value.name"/>
+    <Meta property="og:image" :content="roomObject.value.imageUrl"/>
+    <Meta property="og:url" :content="ogUrl"/>
+    <Meta name="twitter:card" content="summary_large_image"/>
+    <Meta name="twitter:title" :content="seoTitle"/>
+    <Meta name="twitter:description" :content="roomObject.value.name"/>
+    <Meta name="twitter:image" :content="roomObject.value.imageUrl"/>
+  </Head>
+
   <h2>房型詳細頁面</h2>
   <div class="container">
     <button @click="router.go(-1)">回上一頁</button>
