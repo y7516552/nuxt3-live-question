@@ -10,7 +10,7 @@
   - 自動撥放功能的延遲時間為 5 秒。
   - 允許輪播項目循環播放。
   - 每次顯示 1 個輪播項目。
-- 補充，模板有預先在 `plugins/iconify.js` 載入 `iconify/vue` 套件，透過全域元件的方式呈現房型資訊區塊的 icon。 `/pages/index.vue` 可以使用 <Icon icon=""/> 元件，在 icon 屬性填入 icon 的名稱，例如 [material-symbols:king-bed](https://icon-sets.iconify.design/material-symbols/king-bed/) :
+- 補充，模板有預先在 `plugins/iconify.js` 載入 `iconify/vue` 套件，透過全域元件的方式呈現房型資訊區塊的 icon。 `/pages/index.vue` 可以使用 `<Icon icon=""/>` 元件，在 icon 屬性填入 icon 的名稱，例如 [material-symbols:king-bed](https://icon-sets.iconify.design/material-symbols/king-bed/) :
 
 ```jsx
 // 安裝
