@@ -8,5 +8,9 @@ export default defineNuxtConfig({
       linkActiveClass: "active",
       linkExactActiveClass: "active",
     },
-  }
+  },
+  modules: ["@pinia/nuxt"],
+  pinia: {
+    storesDirs: ['./stores/**'], 
+  },
 });

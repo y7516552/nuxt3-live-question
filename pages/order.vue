@@ -1,7 +1,10 @@
 <script setup>
+import { useBookingStore } from '../stores/booking'
+const bookingStore = useBookingStore()
+const { bookingResult } = bookingStore
 // 1. 從 useBookingStore 取出資料 bookingResult
 
-const bookingResult = ref({});
+// const bookingResult = ref({});
 </script>
 
 <template>
