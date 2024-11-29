@@ -1,6 +1,8 @@
 <script setup>
 // 將 bookingInfo 改成使用 Pinia 的資料
-const bookingInfo = ref({});
+const store = useBookingStore()
+const { bookingInfo } = storeToRefs(store)
+// const bookingInfo = ref({});
 </script>
 
 <template>
