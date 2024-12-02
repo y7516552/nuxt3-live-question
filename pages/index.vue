@@ -6,11 +6,12 @@ const confirmReservation = () => {
   submitButtonRef.value.click();
 };
 
-const onSubmit = (value = {}) => {
+const onSubmit = (value = {}, { resetForm }) => {
   console.log("送出的值:", value);
   alert("送出訂房!");
   // 改成用 VeeValidate  的 resetForm 方法將表單重置
-  formRef.value.reset();
+  // formRef.value.reset();
+  resetForm();
 };
 </script>
 
@@ -21,70 +22,110 @@ const onSubmit = (value = {}) => {
         <section>
           <h2 class="mb-4 fw-bold">訂房人資訊</h2>
 
-          <form @submit.prevent="onSubmit" ref="formRef">
+          <VForm v-slot="{ errors, meta  }" ref="formRef" @submit="onSubmit" >
             <div class="mb-4">
               <label for="name" class="form-label fw-bold">姓名</label>
-              <input
+              <VField
                 id="name"
+                name="name"
                 type="text"
-                class="form-control is-invalid p-3 rounded-3"
+                class="form-control p-3 rounded-3"
+                :class="{ 'is-invalid': errors['name'] }"
                 placeholder="請輸入姓名"
+                rules="required|username"
               />
-              <span name="姓名" class="invalid-feedback"
+              <VErrorMessage class="invalid-feedback" name="name" />
+              <!-- <span name="姓名" class="invalid-feedback"
                 >姓名 不能小於 2 個字元</span
-              >
+              > -->
             </div>
 
             <div class="mb-4">
               <label for="phone" class="form-label fw-bold">手機號碼</label>
-              <input
+              <VField
                 id="phone"
+                name="phone"
                 type="tel"
-                class="form-control p-3 rounded-3 is-invalid"
+                class="form-control p-3 rounded-3"
+                :class="{ 'is-invalid': errors['phone'] }"
                 placeholder="請輸入手機號碼"
+                rules="required|phone"
               />
-              <span class="invalid-feedback">需要正確的電話號碼</span>
+              <VErrorMessage class="invalid-feedback" name="phone" />
+              <!-- <span class="invalid-feedback">需要正確的電話號碼</span> -->
             </div>
 
             <div class="mb-4">
               <label for="email" class="form-label fw-bold">電子信箱</label>
-              <input
+              <VField
                 id="email"
+                name="email"
                 type="email"
-                class="form-control p-3 rounded-3 is-invalid"
+                class="form-control p-3 rounded-3"
+                :class="{ 'is-invalid': errors['email'] }"
                 placeholder="請輸入電子信箱"
+                rules="required|email"
               />
-              <span class="invalid-feedback">電子信箱 須為有效的電子信箱</span>
+              <VErrorMessage class="invalid-feedback" name="email" />
+              <!-- <span class="invalid-feedback">電子信箱 須為有效的電子信箱</span> -->
             </div>
 
             <div class="mb-4">
               <label for="road" class="form-label fw-bold">地址</label>
-              <div class="d-flex gap-2 mb-4">
-                <select
-                  class="form-select w-50 p-3 fw-medium rounded-3 is-invalid"
-                >
-                  <option selected disabled value="">請選擇縣市</option>
-                  <option value="高雄市">高雄市</option>
-                </select>
-                <select
-                  class="form-select w-50 p-3 fw-medium rounded-3 is-invalid"
-                >
-                  <option selected disabled value="">請選擇行政區</option>
-                  <option value="前金區">前金區</option>
-                  <option value="鹽埕區">鹽埕區</option>
-                  <option value="新興區">新興區</option>
-                </select>
+              <div class="d-flex justify-content-center gap-2 mb-4">
+                <div class="w-100">
+
+                  <VField
+                    name="city"
+                    v-slot="{ value }"
+                    class="form-select w-50 p-3 fw-medium rounded-3"
+                    :class="{ 'is-invalid': errors['city'] }"
+                    as="select"
+                    rules="required"
+                  >
+                    <option selected disabled value="">請選擇縣市</option>
+                    <option value="高雄市">高雄市</option>
+                  </VField>
+                  <VErrorMessage class="invalid-feedback" name="city"/>
+                </div>
+                <div class="w-100">
+                  <VField
+                    name="county"
+                    v-slot="{ value }"
+                    class="form-select w-50 p-3 fw-medium rounded-3"
+                    :class="{ 'is-invalid': errors['county'] }"
+                    as="select"
+                     rules="required"
+                  >
+                    <option selected disabled value="">請選擇行政區</option>
+                    <option value="前金區">前金區</option>
+                    <option value="鹽埕區">鹽埕區</option>
+                    <option value="新興區">新興區</option>
+                  </VField>
+                  <VErrorMessage class="invalid-feedback" name="county"/>
+                </div>
               </div>
-              <input
+              <VField
                 id="road"
+                name="road"
                 type="text"
-                class="form-control p-3 rounded-3 is-invalid"
+                class="form-control p-3 rounded-3"
+                :class="{ 'is-invalid': errors['road'] }"
                 placeholder="請輸入詳細地址"
+                rules="required"
               />
-              <span class="invalid-feedback">地址 為必填</span>
+              
+              <VErrorMessage class="invalid-feedback" name="road">
+                <span class="invalid-feedback">地址 為必填</span>
+              </VErrorMessage>
             </div>
-            <button ref="submitButtonRef" type="submit" class="d-none"></button>
-          </form>
+            <button 
+              ref="submitButtonRef"
+              type="submit"   
+              class="d-none"
+              :disabled="!meta.valid"
+              ></button>
+          </VForm>
         </section>
       </div>
       <div class="col-md-5">
