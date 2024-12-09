@@ -1,5 +1,16 @@
 <script setup>
+const accountToken = useCookie("accountToken");
+const route = useRoute();
+const { orderId } = route.params;
+
 const orderInfo = ref({});
+const { data:order, error } = await useFetch(`/api/v1/orders/${orderId}`, {
+  baseURL: "https://nuxr3.zeabur.app",
+  headers:{
+    Authorization: accountToken.value
+  }
+});
+orderInfo.value = order.value.result
 </script>
 
 <template>

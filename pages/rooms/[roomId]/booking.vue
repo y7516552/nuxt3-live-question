@@ -1,12 +1,73 @@
 <script setup>
-const router = useRouter();
+import { email } from "@vee-validate/rules";
+import { ZipCodeMap, cityList } from "~/utils/zipcodes";
+definePageMeta({
+  middleware: ["auth"]
+})
 
+const submitButtonRef= ref(null)
+
+const bookingStore = useBookingStore();
+const{ bookingInfo, userAddersInfo } = storeToRefs(bookingStore)
+
+const router = useRouter();
+const route = useRoute();
+const { roomId } = route.params;
+if(!bookingInfo.value.roomId) navigateTo(`/rooms/${roomId}`)
+
+
+const { data:room, error } = await useFetch(`/api/v1/rooms/${roomId}`, {
+  baseURL: "https://nuxr3.zeabur.app",
+});
 const roomInfo = ref({});
-const bookingInfo = ref({});
+roomInfo.value = room.value.result
+// const bookingInfo = ref({});
+
+const form = ref(null)
+const city = ref("臺北市");
+const zipcodeList = ref([]);
+const countyList = (city) => ZipCodeMap.filter(value => value.name == city);
+
+watch(
+  city,
+  () => {
+    const list = countyList(city.value);
+    zipcodeList.value = list[0].districts;
+  },
+  { immediate: true }
+);
+
+const getUserAdderss = async() => {
+  await bookingStore.getUserAddersInfo()
+  const getCity = ( zipcode ) => ZipCodeMap.find(value => {
+    return value.districts.find(item =>item.zip == zipcode)
+  });
+  const cityObj = getCity(userAddersInfo.value.address.zipcode)
+  form.value.setValues({
+    "姓名": userAddersInfo.value.name,
+    "電子信箱": userAddersInfo.value.email,
+    "手機號碼": userAddersInfo.value.phone,
+    "縣市": cityObj.name,
+    "行政區": userAddersInfo.value.address.zipcode,
+    "地址": userAddersInfo.value.address.detail
+  })
+}
 
 const discountPrice = 1000;
 
-const createOrder = async (userInfo) => {};
+const createOrder = async (userInfo) => {
+  bookingInfo.value.userInfo = {
+    name:userInfo["姓名"],
+    email:userInfo["電子信箱"],
+    phone:userInfo["手機號碼"],
+    address:{
+      zipcode:userInfo["行政區"],
+      detail:userInfo["地址"]
+    }
+  }
+  delete bookingInfo.value.bookingDays
+  bookingStore.createOder(bookingInfo.value)
+};
 </script>
 
 <template>
@@ -16,7 +77,14 @@ const createOrder = async (userInfo) => {};
         <div class="col-md-7">
           <section>
             <h2 class="mb-4 fw-bold">訂房人資訊</h2>
-            <Form @submit="createOrder" v-slot="{ errors }">
+            <button
+              class="text-primary-100 bg-transparent border-0 fw-bold text-decoration-underline"
+              type="button"
+              @click.prevent="getUserAdderss()"
+              >
+              套用會員資料
+            </button>
+            <Form ref="form" @submit="createOrder" v-slot="{ errors }">
               <div class="mb-4">
                 <label for="name" class="form-label fw-bold">姓名</label>
                 <Field
@@ -63,6 +131,7 @@ const createOrder = async (userInfo) => {};
                 <label for="road" class="form-label fw-bold">地址</label>
                 <div className="d-flex gap-2 mb-4">
                   <Field
+                    v-model="city"
                     as="select"
                     v-slot="value"
                     name="縣市"
@@ -71,7 +140,14 @@ const createOrder = async (userInfo) => {};
                     :class="{ 'is-invalid': errors['縣市'] }"
                   >
                     <option selected disabled value="">請選擇縣市</option>
-                    <option value="高雄市">高雄市</option>
+                    <option
+                      v-for="item in cityList"
+                      :key="item"
+                      :value="item"
+                      :selected="item == '臺北市'"
+                    >
+                      {{ item }}
+                    </option>
                   </Field>
                   <Field
                     as="select"
@@ -81,9 +157,9 @@ const createOrder = async (userInfo) => {};
                     :class="{ 'is-invalid': errors['行政區'] }"
                   >
                     <option selected disabled value="">請選擇行政區</option>
-                    <option value="前金區">前金區</option>
-                    <option value="鹽埕區">鹽埕區</option>
-                    <option value="新興區">新興區</option>
+                    <option v-for="item in zipcodeList" :value="item.zip">
+                      {{ item.name }}
+                    </option>
                   </Field>
                 </div>
                 <Field
@@ -144,6 +220,7 @@ const createOrder = async (userInfo) => {};
           <button
             class="btn btn-lg btn-primary w-100 fw-bold rounded-3"
             type="button"
+            @click="submitButtonRef.click()"
           >
             確認訂房
           </button>

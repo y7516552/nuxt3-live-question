@@ -1,5 +1,7 @@
 <script setup>
 import { useScreens } from "vue-screen-utils";
+import { useBookingStore }from'@/stores/booking'
+const bookingStore = useBookingStore();
 
 const router = useRouter();
 const route = useRoute();
@@ -15,6 +17,7 @@ if (error.value) {
 }
 room.value = data.value?.result;
 
+const roomPrice = computed(() => room.value? room.value.price.toLocaleString(): 0)
 const generateLocaleDateRange = () => {
   const currentDate = new Date();
 
@@ -73,6 +76,14 @@ const countDateDiffs = ({ start, end }) => {
 
 const takeReservation = () => {
   const roomId = room.value._id;
+  bookingStore.setBookingInfo({
+    roomId: roomId,
+    checkInDate: bookingDate.value.start,
+    checkOutDate: bookingDate.value.end,
+    bookingDays:countDateDiffs( bookingDate.value),
+    peopleNum: bookingPeople.value,
+    userInfo: {}
+  })
 
   router.push(`/rooms/${roomId}/booking`);
 };
@@ -186,7 +197,7 @@ const takeReservation = () => {
                 </button>
               </div>
             </div>
-            <h5 class="mb-0 fw-bold">NT$ {{ room.price }}</h5>
+            <h5 class="mb-0 fw-bold">NT$ {{ roomPrice }}</h5>
             <button
               @click="takeReservation"
               type="button"
